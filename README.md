@@ -10,6 +10,8 @@ The service has two endpoints. `/query` and `/history` and is served by default 
 
 ### Query Endpoint
 
+The query endpoint is used to query an aggregated view of power usage over time. 
+
 The query endpoint requires a `granularity` field, with possible values: hourly, monthly, dayOfMonth.
 
 The query endpoint optionally takes an ISO 8601 from and to date. 
@@ -20,7 +22,25 @@ curl "localhost:3000/query?granularity=monthly&from=2025-12-30&to=2025-12-30" -i
 ```
 
 Example response: 
-```{"from":"2025-12-30","to":"2025-12-30","granularity":"monthly","data":{"aggregation":{"results":[{"timestamp":"2025-12-01T00:00:00Z","total_quantity":216000.0}]}}}```
+``` json
+{"from":"2025-12-30","to":"2025-12-30","granularity":"monthly","data":{"aggregation":{"results":[{"timestamp":"2025-12-01T00:00:00Z","total_quantity":216000.0}]}}}
+```
+
+### History Endpoint
+
+The history endpoint shows the last 10 executed queries. 
+
+The history endpoint takes no additional parameters.
+
+Example usage: 
+```shell
+curl "localhost:3000/history"
+```
+
+Example response:
+```json
+{"data":[{"query_time":"2026-01-09T07:16:28.010804","from_date":"2025-10-01","to_date":"2025-10-04","granularity":"dayOfMonth"},{"query_time":"2026-01-09T07:16:28.010793","from_date":"2025-10-01","to_date":"2025-10-01","granularity":"dayOfMonth"},{"query_time":"2026-01-09T07:16:28.010786","from_date":"2025-10-01","to_date":"2025-10-23","granularity":"monthly"},{"query_time":"2026-01-09T07:15:46.314863","from_date":"2025-10-01","to_date":"2025-10-23","granularity":"monthly"},{"query_time":"2026-01-09T07:15:46.313966","from_date":"2025-10-01","to_date":"2025-10-04","granularity":"dayOfMonth"},{"query_time":"2026-01-09T07:15:46.313906","from_date":"2025-10-01","to_date":"2025-10-01","granularity":"dayOfMonth"},{"query_time":"2026-01-09T07:12:01.151438","from_date":"2025-10-01","to_date":"2025-10-01","granularity":"dayOfMonth"},{"query_time":"2026-01-09T07:12:01.150596","from_date":"2025-10-01","to_date":"2025-10-23","granularity":"monthly"},{"query_time":"2026-01-09T07:11:41.280699","from_date":"2025-10-01","to_date":"2025-10-23","granularity":"monthly"},{"query_time":"2026-01-09T07:09:51.249916","from_date":"2025-12-30","to_date":"2025-12-30","granularity":"monthly"}]}
+```
 
 ## Running Integration tests
 
