@@ -1,0 +1,15 @@
+services:
+  timeseries-aggregation:
+    container_name: timeseries-aggregation
+    build: .
+    restart: always
+    develop:
+      watch:
+        - action: rebuild
+          path: ./src  # The folder to watch for changes
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./example.xlsx:/home/nonroot/example.xlsx
+    environment:
+      TIMESERIES_AGGREGATION_DATABASE_URL: "postgresql://postgres:testPassword@postgres:5432/timeseries"

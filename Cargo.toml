@@ -1,0 +1,32 @@
+[package]
+name = "timeseries-aggregation"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "timeseries_aggregation_lib"
+path = "src/lib.rs"
+
+[[bin]]
+name = "timeseries-aggregation"
+path = "src/main.rs"
+
+
+[dependencies]
+anyhow = "1.0.100"
+axum = "0.8.8"
+calamine = {version = "0.32.0", features = ["chrono", "dates"] }
+chrono = "0.4.42"
+diesel = { version = "2.3.5", features = ["postgres", "chrono", "r2d2"] }
+diesel_migrations = { version = "2.3.1", features = ["postgres"] }
+serde = { version = "1.0.228", features = ["derive"] }
+openssl-sys = { version = "0.9.111", features = ["vendored"] }
+pq-sys = { version = "0.7.5", features = ["bundled"] }
+tokio = { version = "1.49.0", features = ["rt-multi-thread", "macros"] }
+tower-http = { version = "0.6.8", features = ["trace"]}
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.22", features = ["json"] }
+
+[dev-dependencies]
+reqwest = "0.13.1"
+tokio = { version = "1.49.0", features = ["test-util"] }

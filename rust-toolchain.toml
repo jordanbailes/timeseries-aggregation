@@ -1,0 +1,3 @@
+# https://releases.rs/
+[toolchain]
+channel = "1.92.0"
